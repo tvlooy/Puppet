@@ -1,7 +1,7 @@
-class drupal::dbimport {
+class mysql::dbimport {
     file { "db-import.sh":
         path => "/tmp/db-import.sh",
-        source => "puppet:///modules/drupal/db-import.sh",
+        source => "puppet:///modules/mysql/db-import.sh",
         ensure => file,
         mode => 0644,
         owner => vagrant,

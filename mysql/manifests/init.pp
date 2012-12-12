@@ -7,4 +7,8 @@ class mysql {
         ensure => running,
         require => Package["mysql-server"],
     }
+
+    class { 'mysql::dbimport' :                                                                                                                                                              
+        require => Class["lamp::sql"]
+    }  
 }
