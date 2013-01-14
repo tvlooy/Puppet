@@ -1,3 +1,6 @@
+Puppet
+======
+
 These are Puppet modules, used by Intracto Vagrant.
 
 Copyright (c) 2012 Intracto Digital Agency info$intracto,com
