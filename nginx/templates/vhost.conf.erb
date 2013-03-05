@@ -1,0 +1,48 @@
+# File Managed by Puppet
+
+server {
+    listen <%= port %>;
+
+    root <%= documentroot %>;
+    index index.html index.htm index.php;
+
+    server_name <%= name %>;
+<% if aliases != "" -%>
+<% aliases.each do |server_name| -%>
+    server_name <%= server_name %>;
+<% end -%>
+<% end -%>
+
+    location / {
+        try_files $uri @rewriteapp;
+    }
+
+    location @rewriteapp {
+        rewrite ^(.*)$ /app.php/$1 last;
+    }
+
+    location ~ ^/(apc|info|config|app|app_dev)\.php(/|$) {
+        # fastcgi_pass   127.0.0.1:9000;
+        fastcgi_pass   unix:/var/run/php5-fpm.sock;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
+        fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+        fastcgi_param  HTTPS              off;
+    }
+
+    gzip on;
+    gzip_http_version 1.1;
+    gzip_vary on;
+    gzip_comp_level 6;
+    gzip_proxied any;
+    gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+    gzip_buffers 16 8k;
+    gzip_disable "MSIE [1-6].(?!.*SV1)";
+
+    location ~* \.(jpg|png|gif|jpeg|css|js|ico)$ {
+        expires 1w;
+    }
+
+    error_log /var/log/nginx/error-<%= name %>.log;
+    access_log /var/log/nginx/access-<%= name %>.log;
+}

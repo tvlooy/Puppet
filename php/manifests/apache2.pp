@@ -1,7 +1,8 @@
-define apache2::php {
+define php::apache2 {
     case $name {
         5.3: {
-            package { "libapache2-mod-php5" :
+            package { "mod-php5" :
+                name    => "libapache2-mod-php5",
                 ensure  => present,
                 notify  => Service["apache2"],
             }
@@ -10,7 +11,9 @@ define apache2::php {
             if ! defined(Class["dotdeb"]) {
                 class { 'dotdeb' : }
             }
-            package { "libapache2-mod-php5" :
+
+            package { "mod-php5" :
+                name    => "libapache2-mod-php5",
                 ensure  => present,
                 require => [
                     Class["dotdeb"],
@@ -23,4 +26,6 @@ define apache2::php {
             fail("This PHP version is not supported")
         }
     }
+
+    php::ini { 'apache2' : }
 }

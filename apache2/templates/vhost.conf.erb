@@ -4,7 +4,9 @@
     ServerAdmin webmaster@<%= name %>
     ServerName <%= name %>
 <% if aliases != "" -%>
-    ServerAlias <%= aliases %>
+<% aliases.each do |server_alias| -%>
+    ServerAlias <%= server_alias %>;
+<% end -%>
 <% end -%>
 
     DocumentRoot <%= documentroot %>

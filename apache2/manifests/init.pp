@@ -43,7 +43,7 @@ class apache2 {
 
     # Disable default site
     exec { "a2dissite default" :
-        require => Package['apache2'],
+        require => Package["apache2"],
         notify  => Service["apache2"],
     }
 }
