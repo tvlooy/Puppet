@@ -2,8 +2,9 @@ Puppet
 ======
 
 These are Puppet modules, used by Intracto Vagrant.
+At the moment the scripts only target Debian Squeeze.
 
-Copyright (c) 2012 Intracto Digital Agency info$intracto,com
+Copyright (c) 2012-2013 Intracto Digital Agency info$intracto,com
 
 Permission to use, copy, modify, and distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
