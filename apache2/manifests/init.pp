@@ -1,16 +1,10 @@
 class apache2 {
-    # package "php5" depends on "apache2-mpm-prefork"
     package { "apache2" :
-        name => "php5",
         ensure => present,
     }
 
     service { "apache2" :
-        ensure => running,
-        require => Package["apache2"],
-    }
-
-    class { "php" :
+        ensure  => running,
         require => Package["apache2"],
     }
 
@@ -30,13 +24,19 @@ class apache2 {
         notify  => Service["apache2"],
     }
 
-    exec { "a2enmod rewrite" :
+    # Change log files and logrotate permissions
+    exec { "logfile_permissions" :
+        command => "chmod -R a+rX /var/log/apache2",
         require => Package["apache2"],
-        notify  => Service["apache2"],
+    }
+    exec { "logrotate_permissions" :
+        command => "sed -i 's/640/660/' /etc/logrotate.d/apache2",
+        require => Package["apache2"],
     }
 
-    exec { "reload-apache2" :
-        command => "/etc/init.d/apache2 restart",
-        require => Service["apache2"],
+    # Disable default site
+    exec { "a2dissite default" :
+        require => Package['apache2'],
+        notify  => Service["apache2"],
     }
 }
