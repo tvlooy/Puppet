@@ -1,19 +1,7 @@
 define mysql::import-data {
-    file { "import-data.sh":
-        path => "/tmp/import-data.sh",
-        source => "puppet:///modules/mysql/import-data.sh",
-        ensure => file,
-        mode => 0644,
-        owner => vagrant,
-        group => vagrant,
-    }
-
     exec { "install db" :
-        path => "/bin:/usr/bin",
-        command => "bash /tmp/import-data.sh ${params::dbuser} ${params::dbpass} ${params::dbname} ${params::sqldump}",
-        require => [
-            File["import-data.sh"],
-            Service["mysql"],
-        ],
+        command => "/bin/zcat /vagrant/${params::sqldump} | /usr/bin/mysql -u${params::dbuser} -p${params::dbpass} ${params::dbname}",
+        onlyif => "test `/usr/bin/mysql -sN -uroot -e \"select count(*) from information_schema.tables where table_schema = \\\"${params::dbname}\\\"\"` -eq 0",
+        require => Exec["create-db"],
     }
 }
