@@ -7,7 +7,9 @@ define apache2::php {
             }
         }
         5.4: {
-            class { 'dotdeb' : }
+            if ! defined(Class["dotdeb"]) {
+                class { 'dotdeb' : }
+            }
             package { "libapache2-mod-php5" :
                 ensure  => present,
                 require => [
