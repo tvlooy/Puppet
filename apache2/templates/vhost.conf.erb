@@ -3,9 +3,9 @@
 <VirtualHost *:<%= port %>>
     ServerAdmin webmaster@<%= name %>
     ServerName <%= name %>
-    <% if aliases != "" -%>
-        ServerAlias <%= aliases %>
-    <% end -%>
+<% if aliases != "" -%>
+    ServerAlias <%= aliases %>
+<% end -%>
 
     DocumentRoot <%= documentroot %>
     <Directory />

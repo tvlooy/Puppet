@@ -1,5 +1,6 @@
 class apache2 {
     package { "apache2" :
+        name   => "apache2-mpm-prefork",
         ensure => present,
     }
 
