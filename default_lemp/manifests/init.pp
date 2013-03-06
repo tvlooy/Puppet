@@ -1,4 +1,4 @@
-class default_lnmp {
+class default_lemp {
     class { 'tools' : }
 
     class { 'nginx' : }

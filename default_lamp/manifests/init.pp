@@ -11,8 +11,11 @@ class default_lamp {
 
     class { 'mysql' : }
     mysql::import-data { $params::sqldump : }
+    mysql::pma { $params::http_server : }
 
     class { 'php' : }
     php::apache2 { $params::php_version : }
     php::mod { 'php5-xdebug' : }
+
+    class { 'mailcollect' : }
 }
