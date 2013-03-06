@@ -1,0 +1,17 @@
+$databases = array (
+    'default' => array (
+        'default' => array (
+            'database' => '<%= scope.lookupvar('params::dbname') %>',
+            'username' => '<%= scope.lookupvar('params::dbuser') %>',
+            'password' => '<%= scope.lookupvar('params::dbpass') %>',
+            'host' => '127.0.0.1',
+            'port' => '',
+            'driver' => 'mysql',
+            'prefix' => '',
+        ),
+    ),
+);
+$conf['cron_safe_threshold'] = '0';
+$conf['error_level'] = 1;
+$conf['preprocess_css'] = 0;
+$conf['preprocess_js'] = 0;
