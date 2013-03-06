@@ -26,9 +26,7 @@ class php {
 
     php::mod { 'php5-gd' : }
     php::mod { 'php5-curl' : }
-    php::mod { $apc :
-        require => Package['php5-cli'],
-    }
+    php::mod { $apc : }
 
     php::ini { 'cli' : }
 }

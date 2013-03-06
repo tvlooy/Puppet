@@ -3,7 +3,10 @@ class mailcollect {
 
     package { $packages :
         ensure => present,
-        require => Package["mysql-server"],
+        require => [
+            Package["mysql-server"],
+            Package['php5-cli'],
+        ],
     }
 
     service { "postfix" :
