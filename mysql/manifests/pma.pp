@@ -1,7 +1,10 @@
 define mysql::pma {
     package { "phpmyadmin" :
         ensure  => present,
-        require => Package['php5-cli'],
+        require => [
+            Package['php5-cli'],
+            Service['mysql'],
+        ],
     }
 
     case $name {
