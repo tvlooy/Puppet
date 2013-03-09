@@ -2,7 +2,7 @@ class symfony2 {
     exec { "composer install" :
         cwd => "/usr/local/bin",
         command => "curl -s https://getcomposer.org/installer | php",
-        require => Class["lamp::web"],
+        require => Package['php5-cli'],
     }
 
     # Install the vendors
@@ -20,4 +20,6 @@ class symfony2 {
         cwd     => "/vagrant/htdocs",
         require => Exec["vendorupdate"],
     }
+
+    php::mod { 'php5-intl' : }
 }
