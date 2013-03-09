@@ -15,4 +15,5 @@ class mysql {
     }
 
     php::mod { 'php5-mysql' : }
+    php::mod { 'php-mdb2-driver-mysql' : }
 }
