@@ -4,4 +4,8 @@ class tools {
     package { $packages :
         ensure => present,
     }
+
+    exec { 'default directory' :
+        command => "echo 'cd /vagrant/htdocs' >> /home/vagrant/.bashrc",
+    }
 }
