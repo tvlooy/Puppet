@@ -22,30 +22,12 @@ class nginx {
     }
 
     # Change user
-#    exec { "UserChange" :
-#        command => "sed -i 's/APACHE_RUN_USER=www-data/APACHE_RUN_USER=vagrant/' /etc/apache2/envvars",
-#        onlyif  => "grep -c 'APACHE_RUN_USER=www-data' /etc/apache2/envvars",
-#        require => Package["apache2"],
-#        notify  => Service["apache2"],
-#    }
-
-    # Change group
-#    exec { "GroupChange" :
-#        command => "sed -i 's/APACHE_RUN_GROUP=www-data/APACHE_RUN_GROUP=vagrant/' /etc/apache2/envvars",
-#        onlyif  => "grep -c 'APACHE_RUN_GROUP=www-data' /etc/apache2/envvars",
-#        require => Package["apache2"],
-#        notify  => Service["apache2"],
-#    }
-
-    # Change log files and logrotate permissions
-#    exec { "logfile_permissions" :
-#        command => "chmod -R a+rX /var/log/apache2",
-#        require => Package["apache2"],
-#    }
-#    exec { "logrotate_permissions" :
-#        command => "sed -i 's/640/660/' /etc/logrotate.d/apache2",
-#        require => Package["apache2"],
-#    }
+    exec { "NginxUserChange" :
+        command => "sed -i 's/user www-data/user vagrant/' /etc/nginx/nginx.conf",
+        onlyif  => "grep -c 'user www-data' /etc/nginx/nginx.conf",
+        require => Package["nginx"],
+        notify  => Service["nginx"],
+    }
 
     # Disable default site
     file { '/etc/nginx/sites-enabled/default':
