@@ -2,7 +2,11 @@ Puppet
 ======
 
 These are Puppet modules, used by Intracto Vagrant.
-At the moment the scripts only target Debian Squeeze.
+At the moment the scripts only target Debian.
+
+Branch master is work in progress
+Use branch wheezy for Debian 7.0
+Use branch squeeze for Debian 6.0
 
 Copyright (c) 2012-2013 Intracto Digital Agency info$intracto,com
 
