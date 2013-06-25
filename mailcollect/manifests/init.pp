@@ -81,6 +81,14 @@ class mailcollect {
         command => 'sed -i "s/\'create_default_folders\'] = FALSE/\'create_default_folders\'] = TRUE/" /etc/roundcube/main.inc.php',
         require => Package[$packages],
     }
+    exec { 'roundcube-default-user' :
+        command => 'sudo sed -i "s#=> \'rcmloginuser#=> \'rcmdloginuser\', \'value\' => \'vagrant#" /var/lib/roundcube/program/include/rcube_template.php',
+        require => Package[$packages],
+    }
+    exec { 'roundcube-default-pass' :
+        command => 'sudo sed -i "s#=> \'rcmloginpwd#=> \'rcmdloginpwd\', \'value\' => \'vagrant#" /var/lib/roundcube/program/include/rcube_template.php',
+        require => Package[$packages],
+    }
 
     # Setup maildir
     exec { 'vagrant-maildir' :
