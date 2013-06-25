@@ -31,7 +31,7 @@ class apache2 {
         require => Package["apache2"],
     }
     exec { "apache_logrotate_permissions" :
-        command => "sed -i 's/640/660/' /etc/logrotate.d/apache2",
+        command => "sed -i 's/640/644/' /etc/logrotate.d/apache2",
         require => Package["apache2"],
     }
 
