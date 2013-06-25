@@ -14,27 +14,24 @@ class drupal {
     }
 
     file { '/vagrant/htdocs/sites/default/settings.php' :
-        ensure => present,
-        owner  => 'vagrant',
-        group  => 'vagrant',
-        source => '/vagrant/htdocs/sites/default/default.settings.php',
-    }
-
-    file { "/tmp/db_settings.inc" :
         ensure  => present,
-        content => template("drupal/db_settings.inc.erb"),
-        require => File["/vagrant/htdocs/sites/default/settings.php"],
+        replace => no,
+        owner   => 'vagrant',
+        group   => 'vagrant',
+        source  => '/vagrant/htdocs/sites/default/default.settings.php',
     }
 
-    exec { "db_settings" :
-        command => 'cat /tmp/db_settings.inc >> /vagrant/htdocs/sites/default/settings.php ; rm /tmp/db_settings.inc',
-        require => File["/tmp/db_settings.inc"],
-    }
+#    file { "/tmp/db_settings.inc" :
+#        ensure  => present,
+#        content => template("drupal/db_settings.inc.erb"),
+#        require => File["/vagrant/htdocs/sites/default/settings.php"],
+#    }
 
-    exec { "add_puppet_banner" :
-        command => 'sed -i "1a\\\n##### Managed by Puppet - Intracto Vagrant #####################################" /vagrant/htdocs/sites/default/settings.php',
-        require => File['/vagrant/htdocs/sites/default/settings.php'],
-    }
+#    exec { "db_settings" :
+#        command => 'cat /tmp/db_settings.inc >> /vagrant/htdocs/sites/default/settings.php ; rm /tmp/db_settings.inc',
+#        require => File["/tmp/db_settings.inc"],
+#        unless  => 'test `grep -c "^\$databases = array (" /vagrant/htdocs/sites/default/settings.php` = 0',
+#    }
 
     exec { "get-drush" :
         command => 'curl http://ftp.drupal.org/files/projects/drush-7.x-5.8.tar.gz | tar xzvf - -C /opt',
