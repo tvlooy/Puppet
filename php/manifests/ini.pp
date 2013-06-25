@@ -8,6 +8,9 @@ define php::ini {
         'set PHP/html_errors On',
         'set PHP/short_open_tag Off',
         "set Date/date.timezone ${timezone}",
+        'set PHP/memory_limit 128M',
+        'set PHP/post_max_size 128M',
+        'set PHP/upload_max_filesize 120M',
     ]
 
     case $name {
