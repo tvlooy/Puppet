@@ -35,7 +35,7 @@ class drupal {
 
     exec { "get-drush" :
         command => 'curl http://ftp.drupal.org/files/projects/drush-7.x-5.8.tar.gz | tar xzvf - -C /opt',
-        require => File["/tmp/db_settings.inc"],
+        require => File['/vagrant/htdocs/sites/default/settings.php'],
         unless  => 'test -f /usr/local/bin/drush',
     }
 
